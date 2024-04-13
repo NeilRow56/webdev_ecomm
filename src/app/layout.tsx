@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-
+import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/providers/AuthProvider'
 import { ToastContainer } from 'react-toastify'
 
 import { cn } from '@/lib/utils'
 
-const fontSans = FontSans({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
 })
@@ -25,7 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${fontSans.variable} ${'theme-orange'}`}>
+      <body
+        className={cn(
+          'theme-orange min-h-screen bg-background font-sans antialiased',
+          inter.variable
+        )}
+      >
         <AuthProvider>
           <ThemeProvider
             attribute="class"
