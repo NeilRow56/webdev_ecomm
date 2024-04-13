@@ -1,17 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter as FontSans } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { Inter } from 'next/font/google'
+
 import { AuthProvider } from '@/providers/AuthProvider'
 import { ToastContainer } from 'react-toastify'
 
-import { cn } from '@/lib/utils'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -25,12 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body
-        className={cn(
-          'theme-orange min-h-screen bg-background font-sans antialiased',
-          inter.variable
-        )}
-      >
+      <body className={`${inter.className} ${'theme-orange'}`}>
         <AuthProvider>
           <ThemeProvider
             attribute="class"
@@ -40,8 +30,8 @@ export default function RootLayout({
           >
             {children}
             <ToastContainer
-              position="bottom-right"
-              autoClose={1000}
+              position="top-right"
+              autoClose={2000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick
