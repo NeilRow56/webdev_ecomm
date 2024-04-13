@@ -10,6 +10,7 @@ import {
   MessageCircle,
   PlusSquare,
   Search,
+  User2,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -26,26 +27,26 @@ const links = [
     icon: Search,
     hideOnMobile: true,
   },
-  { name: 'Explore', href: '/dashboard/explore', icon: Compass },
+  { name: 'Products', href: '/dashboard/products', icon: Compass },
   {
-    name: 'Reels',
-    href: '/dashboard/reels',
+    name: 'Orders',
+    href: '/dashboard/orders',
     icon: Clapperboard,
   },
   {
-    name: 'Messages',
-    href: '/dashboard/messages',
-    icon: MessageCircle,
+    name: 'Users',
+    href: '/dashboard/users',
+    icon: User2,
   },
   {
-    name: 'Notifications',
-    href: '/dashboard/notifications',
+    name: 'Sales',
+    href: '/dashboard/sales',
     icon: Heart,
     hideOnMobile: true,
   },
   {
-    name: 'Create',
-    href: '/dashboard/create',
+    name: 'Customers',
+    href: '/dashboard/customers',
     icon: PlusSquare,
   },
   {
