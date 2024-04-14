@@ -1,7 +1,7 @@
 import { AuthOptions, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcryptjs from 'bcryptjs'
-import { db } from '@/lib/db'
+
 import { User } from '.prisma/client'
 
 import {
@@ -9,6 +9,7 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next'
+import db from './db'
 
 export const authOptions: AuthOptions = {
   pages: {
