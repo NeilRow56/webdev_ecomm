@@ -15,15 +15,66 @@ async function getSalesData() {
   }
 }
 
+async function getUserData() {
+  const [userCount, orderData] = await Promise.all([
+    db.user.count(),
+    db.order.aggregate({
+      _sum: { pricePaidInCents: true },
+    }),
+  ])
+
+  return {
+    userCount,
+    averageValuePerUser:
+      userCount === 0
+        ? 0
+        : (orderData._sum.pricePaidInCents || 0) / userCount / 100,
+  }
+}
+
+// In the above we are checking if the userCount is zero. If it is we return 0.
+// If not zero we calcilate the average bur the  || 0 sets the default as 0
+//We divide by 100 because the price is in cents
+
+async function getProductData() {
+  const [activeCount, inactiveCount] = await Promise.all([
+    db.product.count({
+      where: { isAvailableForPurchase: true },
+    }),
+    db.product.count({
+      where: { isAvailableForPurchase: false },
+    }),
+  ])
+
+  return {
+    activeCount,
+    inactiveCount,
+  }
+}
+
 async function DashboardPage() {
-  const salesData = await getSalesData()
+  const [salesData, userData, productData] = await Promise.all([
+    getSalesData(),
+    getUserData(),
+    getProductData(),
+  ])
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <DashboardCard
         title="Sales"
-        subtitle={formatNumber(salesData.numberOfSales)}
+        subtitle={`${formatNumber(salesData.numberOfSales)} Orders`}
         description={formatCurrency(salesData.amount)}
+      />
+      <DashboardCard
+        title="Customers"
+        subtitle={`${formatCurrency(userData.averageValuePerUser)} Average Value`}
+        description={formatNumber(userData.userCount)}
+      />
+      <DashboardCard
+        title="Active Products"
+        subtitle={`${formatNumber(productData.inactiveCount)} Inactive`}
+        description={formatNumber(productData.activeCount)}
       />
     </div>
   )
