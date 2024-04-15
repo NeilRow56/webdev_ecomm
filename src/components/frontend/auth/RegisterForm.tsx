@@ -76,10 +76,13 @@ export const RegisterForm = () => {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex w-full">First Name</FormLabel>
+                  <FormLabel htmlFor="firstName" className="flex w-full">
+                    First Name
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
+                      id="firstName"
                       placeholder="John "
                       disabled={isPending}
                     />
@@ -93,9 +96,16 @@ export const RegisterForm = () => {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex w-full">Last Name</FormLabel>
+                  <FormLabel htmlFor="lasName" className="flex w-full">
+                    Last Name
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Doe" disabled={isPending} />
+                    <Input
+                      {...field}
+                      id="lastName"
+                      placeholder="Doe"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -108,13 +118,16 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex w-full">Email</FormLabel>
+                  <FormLabel htmlFor="email" className="flex w-full">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="john.doe@example.com"
                       disabled={isPending}
                       type="email"
+                      id="email"
                       suffix={<MailIcon />}
                     />
                   </FormControl>

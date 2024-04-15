@@ -12,4 +12,9 @@ export const ProductSchema = z.object({
     .int()
     .positive()
     .min(1, { message: 'Cents should be at least 1' }),
+  description: z.string().min(2, {
+    message: 'Product description must be at least 2 characters.',
+  }),
+  // file: z.string().url().optional(),
+  // imagePath: z.string().url(),
 })

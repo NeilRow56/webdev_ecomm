@@ -38,8 +38,9 @@ model Product {
   id                       String @id @default(auto()) @map("_id") @db.ObjectId
   name                     String
   description              String
-  pricePence               Int
-  imagePath                String
+  priceInCents             Int
+  file                     String?          
+  imagePath                String?
   isAvailableForPurchase   Boolean    @default(true)
   createdAt                DateTime   @default(now())
   updatedAt                DateTime   @updatedAt
