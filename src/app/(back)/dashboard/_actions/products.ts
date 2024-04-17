@@ -58,4 +58,9 @@ export async function deleteProduct(id: string) {
     where: { id: id },
   })
   if (product == null) return notFound()
+
+  await fs.unlink(product.filePath ?? '{}')
+  await fs.unlink(`public${product.imagePath ?? '{}'}`)
+
+  //The double question mark (??) in JavaScript, also known as the nullish coalescing operator, is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, otherwise it returns the left-hand side. This operator provides a cleaner syntax for selecting the first "defined" value from a list.
 }
