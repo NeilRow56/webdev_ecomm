@@ -3,9 +3,9 @@
 import db from '@/lib/db'
 import { addProductSchema } from '@/schemas/admin'
 import fs from 'fs/promises'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
-export async function addProduct(formData: FormData) {
+export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addProductSchema.safeParse(
     Object.fromEntries(formData.entries())
   )
@@ -31,6 +31,7 @@ export async function addProduct(formData: FormData) {
 
   await db.product.create({
     data: {
+      isAvailableForPurchase: false,
       name,
       description,
       priceInCents,
@@ -40,4 +41,21 @@ export async function addProduct(formData: FormData) {
   })
 
   redirect('/dashboard/products')
+}
+
+export async function toggleProductAvailability(
+  id: string,
+  isAvailableForPurchase: boolean
+) {
+  await db.product.update({
+    where: { id: id },
+    data: { isAvailableForPurchase },
+  })
+}
+
+export async function deleteProduct(id: string) {
+  const product = await db.product.delete({
+    where: { id: id },
+  })
+  if (product == null) return notFound()
 }
