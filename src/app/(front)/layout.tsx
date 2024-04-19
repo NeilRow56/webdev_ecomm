@@ -6,10 +6,10 @@ function FrontLayout({ children }: { children: ReactNode }) {
   return (
     <div className="">
       <Navbar />
-      <div className=" fixed  top-16 z-50 w-full bg-background py-6 pl-4 md:pl-24 lg:pl-64">
+      {/* <div className=" fixed  top-16 z-50 w-full bg-background py-6 pl-4 md:pl-24 lg:pl-64">
         <MegaMenu />
-      </div>
-      <div className="pt-[150px]">{children}</div>
+      </div> */}
+      <div className="pt-8">{children}</div>
     </div>
   )
 }

@@ -28,17 +28,12 @@ function Navbar() {
       href: '/',
     },
     {
-      title: 'Doctors',
-      href: '/doctors/1',
+      title: 'Products',
+      href: '/products',
     },
     {
-      title: 'Telehealth',
-      href: '/teleheath-visit',
-    },
-
-    {
-      title: 'Service',
-      href: '/join/doctors',
+      title: 'My Orders',
+      href: '/orders',
     },
   ]
 
@@ -71,7 +66,7 @@ function Navbar() {
             {item.title}
           </Link>
         ))}
-        {user ? <Link href="/dashboard">Dashboard</Link> : ''}
+        {/* {user ? <Link href="/dashboard">Dashboard</Link> : ''} */}
       </div>
 
       <div className=" flex  items-center   gap-6 pr-16">
@@ -95,6 +90,7 @@ function Navbar() {
                   <DropdownMenuItem>
                     <Link href="/user/profile">Profile</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link href="/edgestore">edgestore</Link>
                   </DropdownMenuItem>
