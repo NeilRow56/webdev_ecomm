@@ -3,7 +3,7 @@
 import { ThemeToggle } from '../dashboard-layout/ThemeToggle'
 import { Button } from '../ui/button'
 import Link from 'next/link'
-import { LogOut } from 'lucide-react'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useSession } from 'next-auth/react'
+import { LogOut } from 'lucide-react'
 
 function Navbar() {
   // Holding userId ready for auth
@@ -99,11 +100,11 @@ function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="menuItem" onClick={() => {}}>
-                    <LogOut size={20} />
                     <Link
-                      className=" tex-lg text-sky-500 transition-colors hover:text-sky-600"
+                      className="flex items-center gap-2 text-lg text-sky-500 transition-colors hover:text-sky-600"
                       href={'/api/auth/signout'}
                     >
+                      <LogOut size={20} />
                       Sign Out
                     </Link>
                   </DropdownMenuItem>

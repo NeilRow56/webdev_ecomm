@@ -67,16 +67,17 @@ function DashboardNavbar() {
                   <DropdownMenuItem>
                     <Link href="/dashboard">Dashboard</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link href="/edgestore">edgestore</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
+
                   <DropdownMenuItem className="menuItem" onClick={() => {}}>
-                    <LogOut size={20} />
                     <Link
-                      className=" tex-lg text-sky-500 transition-colors hover:text-sky-600"
+                      className="flex items-center gap-2 text-lg text-sky-500 transition-colors hover:text-sky-600"
                       href={'/api/auth/signout'}
                     >
+                      <LogOut size={20} />
                       Sign Out
                     </Link>
                   </DropdownMenuItem>
