@@ -3,6 +3,8 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { ProductCard } from './ProductCard'
+import { ProductCardSkeleton } from './ProductCardSkeleton'
+import { Suspense } from 'react'
 
 type ProductGridSectionProps = {
   productsFetcher: () => Promise<Product[]>
@@ -24,11 +26,21 @@ export async function ProductGridSection({
           </Link>
         </Button>
       </div>
-      <div className="grid-cols1 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {(await productsFetcher()).map((product) => (
-          <ProductCard key={product.id} {...product} />
-        ))}
+      <div className="grid grid-cols-1 gap-4  md:grid-cols-2 lg:grid-cols-3">
+        <Suspense fallback={<ProductCardSkeleton />}>
+          <ProductSuspense productsFetcher={productsFetcher} />
+        </Suspense>
       </div>
     </div>
   )
+}
+
+async function ProductSuspense({
+  productsFetcher,
+}: {
+  productsFetcher: () => Promise<Product[]>
+}) {
+  return (await productsFetcher()).map((product) => (
+    <ProductCard key={product.id} {...product} />
+  ))
 }
