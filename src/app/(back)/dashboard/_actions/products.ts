@@ -3,6 +3,7 @@
 import db from '@/lib/db'
 import { addProductSchema, editProductSchema } from '@/schemas/admin'
 import fs from 'fs/promises'
+import { revalidatePath } from 'next/cache'
 import { notFound, redirect } from 'next/navigation'
 
 export async function addProduct(prevState: unknown, formData: FormData) {
@@ -39,7 +40,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
       imagePath,
     },
   })
-
+  revalidatePath('/')
+  revalidatePath('/products')
   redirect('/dashboard/products')
 }
 
@@ -51,6 +53,9 @@ export async function toggleProductAvailability(
     where: { id: id },
     data: { isAvailableForPurchase },
   })
+
+  revalidatePath('/')
+  revalidatePath('/products')
 }
 
 export async function deleteProduct(id: string) {
@@ -61,6 +66,9 @@ export async function deleteProduct(id: string) {
 
   await fs.unlink(product.filePath ?? '{}')
   await fs.unlink(`public${product.imagePath ?? '{}'}`)
+
+  revalidatePath('/')
+  revalidatePath('/products')
 
   //The double question mark (??) in JavaScript, also known as the nullish coalescing operator, is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, otherwise it returns the left-hand side. This operator provides a cleaner syntax for selecting the first "defined" value from a list.
 }
@@ -121,5 +129,7 @@ export async function updateProduct(
     },
   })
 
+  revalidatePath('/')
+  revalidatePath('/products')
   redirect('/dashboard/products')
 }

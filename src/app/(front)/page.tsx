@@ -1,19 +1,24 @@
 import Hero from '@/components/frontend/Hero'
 import { ProductGridSection } from '@/components/frontend/ProductGridSecion'
+import { cache } from '@/lib/cache'
 import db from '@/lib/db'
 
-function getMostPopularProducts() {
-  return db.product.findMany({
-    where: {
-      isAvailableForPurchase: true,
-    },
-    orderBy: {
-      orders: { _count: 'desc' },
-    },
-    take: 6,
-  })
-}
-function getNewestProducts() {
+const getMostPopularProducts = cache(
+  () => {
+    return db.product.findMany({
+      where: {
+        isAvailableForPurchase: true,
+      },
+      orderBy: {
+        orders: { _count: 'desc' },
+      },
+      take: 6,
+    })
+  },
+  ['/', ' getMostPopularProducts'],
+  { revalidate: 60 * 60 * 24 }
+)
+const getNewestProducts = cache(() => {
   return db.product.findMany({
     where: {
       isAvailableForPurchase: true,
@@ -21,7 +26,7 @@ function getNewestProducts() {
     orderBy: { createdAt: 'desc' },
     take: 6,
   })
-}
+}, ['/', 'getNewestProducts '])
 
 export default async function LandingPage() {
   return (
